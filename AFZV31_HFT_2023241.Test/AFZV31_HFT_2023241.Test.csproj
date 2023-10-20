@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AFZV31_HFT_2023241.Logic\AFZV31_HFT_2023241.Logic.csproj" />
     <ProjectReference Include="..\AFZV31_HFT_2023241.Models\AFZV31_HFT_2023241.Models.csproj" />
     <ProjectReference Include="..\AFZV31_HFT_2023241.Repository\AFZV31_HFT_2023241.Repository.csproj" />
   </ItemGroup>
