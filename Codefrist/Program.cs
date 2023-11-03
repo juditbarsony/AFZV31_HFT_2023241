@@ -1,14 +1,12 @@
-﻿using AFZV31_HFT_2023241.Models;
-using System;
+﻿using System;
 
-namespace AFZV31_HFT_2023241
+namespace Codefrist
 {
     internal class Program
     {
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            //Annual.Equals
         }
     }
 }
