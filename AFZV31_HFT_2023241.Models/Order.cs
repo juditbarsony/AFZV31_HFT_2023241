@@ -20,12 +20,10 @@ namespace AFZV31_HFT_2023241.Models
         public int AnnualId { get; set; }
 
         private string line;
-
-        public virtual ICollection<Annual> Annuals { get; set; }
-
+        public virtual Annual Annuals { get; set; }
         public Order()
         {
-                Annuals = new HashSet<Annual>();          
+                //Annuals = new HashSet<Annual>();          
         }
 
         public Order(int orderId, string orderCompany, string orderPackaging, int price)
@@ -40,6 +38,7 @@ namespace AFZV31_HFT_2023241.Models
         {
             string[] split = line.Split('#');
             OrderId = int.Parse(split[0]);
+
             OrderCompany = split[1];
             OrderPackaging = split[2];
             Price = int.Parse(split[3]);

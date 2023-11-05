@@ -42,7 +42,7 @@ namespace AFZV31_HFT_2023241.Repository
 
             modelBuilder.Entity<Order>(order => order
             .HasOne(order => order.Annuals)
-            .WithOne(annual=>annual.Orders)
+            .WithMany(annual=>annual.Orders)
             .HasForeignKey(order => order.AnnualId)
             .OnDelete(DeleteBehavior.Cascade));
 

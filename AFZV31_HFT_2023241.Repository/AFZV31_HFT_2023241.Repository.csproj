@@ -5,13 +5,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="annuals.mdf" />
+    <None Remove="annuals_log.ldf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="annuals.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="annuals_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AFZV31_HFT_2023241.Models\AFZV31_HFT_2023241.Models.csproj" />
   </ItemGroup>
-	<ItemGroup>
-		<Content Include="annuals.mdf">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.14" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.14" />
