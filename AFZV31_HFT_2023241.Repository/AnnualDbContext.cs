@@ -36,14 +36,14 @@ namespace AFZV31_HFT_2023241.Repository
         {
             modelBuilder.Entity<Area>(area => area
             .HasOne(area => area.Annuals)
-            .WithMany(annual=>annual.)
+            .WithMany(annual=>annual.Areas)
             .HasForeignKey(area => area.AnnualId)
             .OnDelete(DeleteBehavior.Cascade));
 
             modelBuilder.Entity<Order>(order => order
-            .HasOne(annual => annual.Annuals)
-            .WithOne()
-            .HasForeignKey(annual => annual.OrderId)
+            .HasOne(order => order.Annuals)
+            .WithOne(annual=>annual.Orders)
+            .HasForeignKey(order => order.AnnualId)
             .OnDelete(DeleteBehavior.Cascade));
 
             modelBuilder.Entity<Annual>().HasData(new Annual[]

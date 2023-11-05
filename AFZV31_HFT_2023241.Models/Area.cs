@@ -20,10 +20,10 @@ namespace AFZV31_HFT_2023241.Models
 
         private string line;
 
-        public virtual Annual Annual { get; set; }
+        public virtual Annual Annuals { get; set; }
 
         public Area()
-        { 
+        {
             //Annuals = new HashSet<Annual>();
         }
 

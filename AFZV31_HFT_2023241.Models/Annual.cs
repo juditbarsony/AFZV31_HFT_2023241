@@ -31,12 +31,14 @@ namespace AFZV31_HFT_2023241.Models
         public int OrderId { get; set; }
 
         public virtual ICollection <Area> Areas{ get; set; }
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection <Order> Orders { get; set; }
 
 
         private string line;
         public Annual()
-        { }
+        {
+        
+        }
 
         public Annual(string line)
         {
