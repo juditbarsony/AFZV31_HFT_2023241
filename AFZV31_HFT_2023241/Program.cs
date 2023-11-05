@@ -8,7 +8,8 @@ namespace AFZV31_HFT_2023241
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            //Annual.Equals
+
+
         }
     }
 }

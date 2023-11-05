@@ -23,6 +23,11 @@ namespace AFZV31_HFT_2023241.Models
 
         public virtual ICollection<Annual> Annuals { get; set; }
 
+        public Order()
+        {
+                Annuals = new HashSet<Annual>();          
+        }
+
         public Order(int orderId, string orderCompany, string orderPackaging, int price)
         {
             this.OrderId = orderId;
