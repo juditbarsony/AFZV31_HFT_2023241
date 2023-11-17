@@ -14,7 +14,7 @@ namespace AFZV31_HFT_2023241
             var items = repo.ReadAll();
             foreach (var item in items)
             {
-                Console.WriteLine(item);
+                Console.WriteLine(item.AnnualName);
             }
             Console.ReadKey();
 

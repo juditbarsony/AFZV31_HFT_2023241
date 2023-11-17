@@ -17,9 +17,11 @@ namespace AFZV31_HFT_2023241.Models
         public string OrderPackaging { get; set; }
         public int Price { get; set; }
 
-        public int AnnualId { get; set; }
+        public string AnnualId { get; set; }
 
         private string line;
+
+        [NotMapped]
         public virtual Annual Annuals { get; set; }
         public Order()
         {
@@ -38,10 +40,10 @@ namespace AFZV31_HFT_2023241.Models
         {
             string[] split = line.Split('#');
             OrderId = int.Parse(split[0]);
-
-            OrderCompany = split[1];
-            OrderPackaging = split[2];
-            Price = int.Parse(split[3]);
+            AnnualId = split[1];
+            OrderCompany = split[2];
+            OrderPackaging = split[3];
+            Price = int.Parse(split[4]);
 
 
         }

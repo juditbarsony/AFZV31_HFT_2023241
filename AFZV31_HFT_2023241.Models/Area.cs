@@ -16,10 +16,10 @@ namespace AFZV31_HFT_2023241.Models
         public int AreaId { get; set; }
         public double AreaSize { get; set; }
 
-        public int AnnualId { get; set; }
+        public string AnnualId { get; set; }
 
         private string line;
-
+        [NotMapped]
         public virtual Annual Annuals { get; set; }
 
         public Area()
@@ -39,8 +39,9 @@ namespace AFZV31_HFT_2023241.Models
             string[] split = line.Split('#');
             AreaId = int.Parse(split[0]);
             AreaSize = double.Parse(split[1]);
-
+            AnnualId = split[2];
         }
+       
 
 
     }

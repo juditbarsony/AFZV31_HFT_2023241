@@ -16,12 +16,13 @@ namespace AFZV31_HFT_2023241.Repository
 
         public override Annual Read(int id)
         {
-            return ctx.Annuals.FirstOrDefault(t => t.AnnualId == id);
+            return ctx.Annuals.FirstOrDefault(t => t.AnnualId.Equals(id));
         }
+
 
         public override void Update(Annual item)
         {
-            var old = Read(item.AnnualId);
+            var old = Read(item.AnnualHash);
             foreach (var prop in old.GetType().GetProperties())
             {
                 prop.SetValue(old, prop.GetValue(item));
