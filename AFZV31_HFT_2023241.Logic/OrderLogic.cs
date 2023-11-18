@@ -32,7 +32,7 @@ namespace AFZV31_HFT_2023241.Logic
             var order = this.repo.Read(id);
             if (order == null)
             {
-                throw new ArgumentException("Area not exists");
+                throw new ArgumentException("Order not exists");
             }
             return order;
         }
