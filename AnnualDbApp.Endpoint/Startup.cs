@@ -1,3 +1,6 @@
+using AFZV31_HFT_2023241.Logic;
+using AFZV31_HFT_2023241.Models;
+using AFZV31_HFT_2023241.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +11,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 
 namespace AnnualDbApp.Endpoint
@@ -25,6 +31,15 @@ namespace AnnualDbApp.Endpoint
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<AnnualDbContext>();
+
+            services.AddTransient<IRepository<Annual>, AnnualRepostitory>();
+            services.AddTransient<IRepository<Area>, AreaRepostitory>();
+            services.AddTransient<IRepository<Order>, OrderRepostitory>();
+   
+            services.AddTransient<IAnnualLogic, AnnualLogic>();
+            services.AddTransient<IAreaLogic, AreaLogic>();
+            services.AddTransient<IOrderLogic, OrderLogic>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -19,17 +19,7 @@ namespace AFZV31_HFT_2023241.Endpoint
         static OrderLogic orderLogic;
         public static void Main(string[] args)
         {
-            var ctx = new AnnualDbContext();
-
-            var annualRepo = new AnnualRepostitory(ctx);
-            var areaRepo = new AreaRepostitory(ctx);
-            var orderRepo = new OrderRepostitory(ctx);
-
-
-            annualLogic = new AnnualLogic(annualRepo);
-            areaLogic = new AreaLogic(areaRepo);
-            orderLogic = new OrderLogic(orderRepo);
-
+           
             //CreateHostBuilder(args).Build().Run();
         }
 
