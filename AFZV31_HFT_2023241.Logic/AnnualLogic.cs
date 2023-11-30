@@ -17,12 +17,16 @@ namespace AFZV31_HFT_2023241.Logic
     public class AnnualLogic : IAnnualLogic
     {
         IRepository<Annual> repo;
+        IRepository<Area> areaRepo; //??
+        IRepository<Order> orderRepo; //??
 
         AnnualDbContext db = new AnnualDbContext();
 
-        public AnnualLogic(IRepository<Annual> repo)
+        public AnnualLogic(IRepository<Annual> repo) // IRepository<Area> areaRepo , IRepository<Order> orderRepo
         {
             this.repo = repo;
+            this.orderRepo = orderRepo; //??
+            this.areaRepo = areaRepo; //??
         }
 
         public void Create(Annual item)
@@ -59,6 +63,14 @@ namespace AFZV31_HFT_2023241.Logic
             this.repo.Update(item);
         }
 
+        /*noncruds
+         * 1.bekéri a nevet, kiadja hogy hány m2-en van ilyen növény
+         * 2. készít egy gyüjteményt, ami név szerint összegzi a területeket, elmenti egy változóba (sumArea)
+         * 3. A sumArea-hoz hozzáadja az Annuals-t (pcsm2). Kimenet egy gyűjtemény (annualPcs): vagy növényenként megmondja hogy hány db-ra van szükség
+         * (annualCode a közös, pcsm2*area kellene)
+         * 4. Az előző gyűjteményhez hozzácsapja az ordert. annualCode a közös, 
+        */
+
 
         public IQueryable AreaCalc(string shortname)
         {
@@ -73,17 +85,20 @@ namespace AFZV31_HFT_2023241.Logic
             return size;
         }
 
-        public void AreaCalc2()
+        public IQueryable AreaCalc2()
         {
             var price = from o in db.Orders
                       join flower in db.Annuals
-                      on o.AnnualCode equals flower.AnnualCode into result
+                      on o.AnnualCode equals flower.AnnualCode 
                       select new
                       {
                           shortname=o.AnnualCode,
                           p=o.Price,
-                          areadb=result.Select(t=>t.Pcsm2)
+                          areadb=flower.Pcsm2,
+                          sum= o.Price* flower.Pcsm2
+
                       };
+            return price;
         }
 
         //public List<Area> AreaCalc3()

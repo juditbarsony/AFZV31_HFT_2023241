@@ -11,7 +11,7 @@ namespace AFZV31_HFT_2023241.Logic
     public interface IAnnualLogic
     {
         IQueryable AreaCalc(string shortname); //??
-        void AreaCalc2(); //??
+        IQueryable AreaCalc2(); //??
         IQueryable PcsCalc(string annualCode);
 
         void Create(Annual item);
