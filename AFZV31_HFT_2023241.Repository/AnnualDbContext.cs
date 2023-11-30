@@ -37,13 +37,13 @@ namespace AFZV31_HFT_2023241.Repository
             modelBuilder.Entity<Area>()
             .HasOne(area => area.Annuals)
             .WithMany(annual => annual.Areas)
-            .HasForeignKey(area => area.AnnualId);
+            .HasPrincipalKey(area => area.AnnualCode);
             //.OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Order>()
             .HasOne(order => order.Annuals)
             .WithMany(annual => annual.Orders)
-            .HasForeignKey(order => order.AnnualId);
+            .HasPrincipalKey(order => order.AnnualCode);
             //.OnDelete(DeleteBehavior.Cascade);
 
 

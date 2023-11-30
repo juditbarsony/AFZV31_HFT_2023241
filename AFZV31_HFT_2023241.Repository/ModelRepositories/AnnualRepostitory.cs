@@ -22,7 +22,7 @@ namespace AFZV31_HFT_2023241.Repository
 
         public override void Update(Annual item)
         {
-            var old = Read(item.AnnualHash);
+            var old = Read(item.AnnualId);
             foreach (var prop in old.GetType().GetProperties())
             {
                 prop.SetValue(old, prop.GetValue(item));

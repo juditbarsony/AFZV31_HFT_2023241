@@ -17,7 +17,7 @@ namespace AFZV31_HFT_2023241.Models
         public int AreaId { get; set; }
         public double AreaSize { get; set; }
 
-        public string AnnualId { get; set; }
+        public string AnnualCode { get; set; }
 
         private string line;
         [NotMapped]
@@ -37,12 +37,18 @@ namespace AFZV31_HFT_2023241.Models
             AreaId = areaId;
             AreaSize = areaSize;
         }
+
+        public Area(string annualCode, double areaSize)
+        {
+            AnnualCode = annualCode;
+            AreaSize = areaSize;
+        }
         public Area (string line)
         {
             string[] split = line.Split('#');
             AreaId = int.Parse(split[0]);
             AreaSize = double.Parse(split[1]);
-            AnnualId = split[2];
+            AnnualCode = split[2];
         }
        
 

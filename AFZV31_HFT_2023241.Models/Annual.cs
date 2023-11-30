@@ -14,8 +14,8 @@ namespace AFZV31_HFT_2023241.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [StringLength(100)]
-        public string AnnualId { get; set; }
-        public int AnnualHash { get; set; }
+        public int AnnualId { get; set; }
+        public string AnnualCode { get; set; }
 
 
 
@@ -46,18 +46,18 @@ namespace AFZV31_HFT_2023241.Models
         public Annual(string line)
         {
             string[] split = line.Split('#');
-            AnnualId = split[1];
+            AnnualId = int.Parse(split[0]);
+            AnnualCode = split[1];
             AnnualName = split[2];
             Pcsm2 = int.Parse(split[3]);
-            AnnualHash= AnnualName.GetHashCode();
         }
 
-        public Annual(string annualId, string annualName, int pcsm2)
+        public Annual(int annualId,string annualCode, string annualName, int pcsm2)
         {
             this.AnnualId = annualId;
+            this.AnnualCode = annualCode;
             this.AnnualName = annualName;
             this.Pcsm2 = pcsm2;
-            AnnualHash = AnnualName.GetHashCode();
         }
 
       

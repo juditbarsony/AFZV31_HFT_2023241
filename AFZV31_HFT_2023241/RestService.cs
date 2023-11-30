@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieDbApp.RestClient
+namespace AFZV31_HFT_2023241.Client
 {
-    class RestService
+    public class RestService
     {
         HttpClient client;
 
@@ -154,3 +154,4 @@ namespace MovieDbApp.RestClient
         public string Msg { get; set; }
     }
 }
+
