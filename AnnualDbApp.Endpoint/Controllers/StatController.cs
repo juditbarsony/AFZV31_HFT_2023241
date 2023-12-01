@@ -1,8 +1,10 @@
 ﻿using AFZV31_HFT_2023241.Logic;
 using AFZV31_HFT_2023241.Models;
 using Microsoft.AspNetCore.Mvc;
+using NPOI.SS.Formula.Functions;
 using System.Collections.Generic;
 using System.Linq;
+using static AFZV31_HFT_2023241.Logic.AnnualLogic;
 
 namespace AFZV31_HFT_2023241.Endpoint.Controllers
 {
@@ -24,30 +26,18 @@ namespace AFZV31_HFT_2023241.Endpoint.Controllers
         }
 
         [HttpGet]
-        public void AreaCalc2()
+        public IQueryable AreaCalc2()
         {
-
-            //return this.logic.AreaCalc2();
+            return this.logic.AreaCalc2();
         }
 
-        [HttpGet("{annualCode}")]
-        public IQueryable PcsCalc(string annualCode)
-        {
-
-            return logic.PcsCalc(annualCode);
-        }
-
-
-        //[HttpGet("{year}")]
-        //public double? AverageRatePerYear(int year)
+        //[HttpGet("{annualCode}")]
+        //public IEnumerable<T> PcsCalc()
         //{
-        //    return this.logic.GetAverageRatePerYear(year);
+
+        //    return logic.PcsCalc();
         //}
 
-        //[HttpGet]
-        //public IEnumerable<MovieLogic.YearInfo> YearStatistics(int year)
-        //{
-        //    return this.logic.YearStatistics();
-        //}
+
     }
 }

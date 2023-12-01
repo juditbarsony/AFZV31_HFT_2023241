@@ -2,6 +2,7 @@
 using AFZV31_HFT_2023241.Repository;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using NPOI.SS.Formula.Functions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,12 +10,13 @@ using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AFZV31_HFT_2023241.Logic
 {
-    public class AnnualLogic : IAnnualLogic
+    public class AnnualLogic :IAnnualLogic
     {
         IRepository<Annual> repo;
         IRepository<Area> areaRepo; //??
@@ -22,7 +24,7 @@ namespace AFZV31_HFT_2023241.Logic
 
         AnnualDbContext db = new AnnualDbContext();
 
-        public AnnualLogic(IRepository<Annual> repo) // IRepository<Area> areaRepo , IRepository<Order> orderRepo
+        public AnnualLogic(IRepository<Annual> repo, IRepository<Area> areaRepo, IRepository<Order> orderRepo)  
         {
             this.repo = repo;
             this.orderRepo = orderRepo; //??
@@ -74,7 +76,7 @@ namespace AFZV31_HFT_2023241.Logic
 
         public IQueryable AreaCalc(string shortname)
         {
-            var size = (from t in db.Areas
+            var size = (from t in this.areaRepo.ReadAll()
                         where t.AnnualCode == shortname
                         group t by t.AnnualCode into g
                         select new
@@ -84,42 +86,82 @@ namespace AFZV31_HFT_2023241.Logic
                         });
             return size;
         }
-
+      
         public IQueryable AreaCalc2()
         {
-            var price = from o in db.Orders
-                      join flower in db.Annuals
-                      on o.AnnualCode equals flower.AnnualCode 
-                      select new
-                      {
-                          shortname=o.AnnualCode,
-                          p=o.Price,
-                          areadb=flower.Pcsm2,
-                          sum= o.Price* flower.Pcsm2
+            var size = (from t in this.areaRepo.ReadAll()
+                        group t by t.AnnualCode into g
+                        select new
+                        {
+                            g.Key,
+                            areasize = g.Sum(z => z.AreaSize)
 
-                      };
-            return price;
+                        });
+            return size;
         }
 
-        //public List<Area> AreaCalc3()
-        //{
-        //    var list = from t in db.Areas
-        //                         group t by t.AnnualCode into g
-        //                         select new Area()
-        //                         {
-        //                             AnnualCode = g.Key.ToString(),
-        //                             AreaSize = g.Sum(z => z.AreaSize)
-        //                         };
 
-        //    return (List<Area>)list;   
+        //public IEnumerable<T> AreaCalc2()
+        //{
+        //    var size = (from t in this.areaRepo.ReadAll()
+        //                group t by t.AnnualCode into g
+        //                select new AreaCalcResult
+        //                {
+        //                    shortname=g.Key,
+        //                    areaSize = g.Sum(z => z.AreaSize)
+
+        //                });
+        //    return (IEnumerable<T>)size;
         //}
 
 
-
-        public IQueryable PcsCalc(string annualCode)
+        public class AreaCalcResult
         {
-            throw new NotImplementedException();
+
+
+            public AreaCalcResult(int annualID, double areaSize, string shortname)
+            {
+                this.annualID = annualID;
+                this.areaSize = areaSize;
+                this.shortname = shortname;
+            }
+            public AreaCalcResult()
+            {
+
+                this.areaSize = areaSize;
+
+                this.shortname = shortname;
+            }
+
+            public int annualID { get; set; }
+            public double areaSize { get; set; }
+            public double pieces { get; set; }
+            public string shortname { get; set; }
+
+            public override bool Equals(object obj)
+            {
+                AreaCalcResult b = obj as AreaCalcResult;
+                if (b == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return this.shortname == b.shortname
+                        && this.areaSize == b.areaSize
+                        && this.annualID == b.annualID;
+                }
+            }
+
         }
+
+        //public IEnumerable<T> PcsCalc()
+        //{
+
+        //    return (IEnumerable<T>)pcs;
+
+        //}
+
 
 
 
