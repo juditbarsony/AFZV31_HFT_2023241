@@ -30,6 +30,21 @@ namespace AFZV31_HFT_2023241.Endpoint.Controllers
         {
             return this.logic.AreaCalc2();
         }
+        [HttpGet]
+        public Area[] AreaRepo()
+        {
+            return this.logic.AreaRepo();
+        }
+        [HttpGet]
+        public Order[] OrderRepo()
+        { 
+        return this.logic.OrderRepo();
+        }
+        [HttpGet]
+        public Annual[] AnnualRepo()
+        {
+            return this.logic.AnnualRepo();
+        }
 
         //[HttpGet("{annualCode}")]
         //public IEnumerable<T> PcsCalc()

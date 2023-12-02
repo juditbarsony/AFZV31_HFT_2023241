@@ -14,7 +14,10 @@ namespace AFZV31_HFT_2023241.Logic
     {
         IQueryable AreaCalc(string shortname);
         IQueryable AreaCalc2(); //??
-        //IEnumerable<T> PcsCalc();
+
+        Area[] AreaRepo();
+        Order[] OrderRepo();
+        Annual[] AnnualRepo();
 
         void Create(Annual item);
         void Delete(int id);

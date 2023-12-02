@@ -22,7 +22,6 @@ namespace AFZV31_HFT_2023241.Logic
         IRepository<Area> areaRepo; //??
         IRepository<Order> orderRepo; //??
 
-        AnnualDbContext db = new AnnualDbContext();
 
         public AnnualLogic(IRepository<Annual> repo, IRepository<Area> areaRepo, IRepository<Order> orderRepo)  
         {
@@ -99,7 +98,21 @@ namespace AFZV31_HFT_2023241.Logic
                         });
             return size;
         }
-
+        public Area[] AreaRepo()
+        {
+             Area[] arepo = areaRepo.ReadAll().ToArray();
+            return arepo;
+        }
+        public Order[] OrderRepo()
+        {
+            Order[] orepo = orderRepo.ReadAll().ToArray();
+            return orepo;
+        }
+        public Annual[] AnnualRepo()
+        {
+            Annual[] anrepo = repo.ReadAll().ToArray();
+            return anrepo;
+        }
 
         //public IEnumerable<T> AreaCalc2()
         //{
