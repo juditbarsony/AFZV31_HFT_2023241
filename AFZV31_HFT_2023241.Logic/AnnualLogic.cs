@@ -3,12 +3,14 @@ using AFZV31_HFT_2023241.Repository;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using NPOI.SS.Formula.Functions;
+using SixLabors.ImageSharp;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -64,6 +66,22 @@ namespace AFZV31_HFT_2023241.Logic
             this.repo.Update(item);
         }
 
+        public Area[] AreaRepo()
+        {
+            Area[] arepo = areaRepo.ReadAll().ToArray();
+            return arepo;
+        }
+        public Order[] OrderRepo()
+        {
+            Order[] orepo = orderRepo.ReadAll().ToArray();
+            return orepo;
+        }
+        public Annual[] AnnualRepo()
+        {
+            Annual[] anrepo = repo.ReadAll().ToArray();
+            return anrepo;
+        }
+
         /*noncruds
          * 1.bekéri a nevet, kiadja hogy hány m2-en van ilyen növény
          * 2. készít egy gyüjteményt, ami név szerint összegzi a területeket, elmenti egy változóba (sumArea)
@@ -73,7 +91,7 @@ namespace AFZV31_HFT_2023241.Logic
         */
 
 
-        public IQueryable AreaCalc(string shortname)
+        public IQueryable AreaCalc(string shortname) //hány m2 területet ütetnek b
         {
             var size = (from t in this.areaRepo.ReadAll()
                         where t.AnnualCode == shortname
@@ -98,39 +116,84 @@ namespace AFZV31_HFT_2023241.Logic
                         });
             return size;
         }
-        public Area[] AreaRepo()
-        {
-             Area[] arepo = areaRepo.ReadAll().ToArray();
-            return arepo;
-        }
-        public Order[] OrderRepo()
+        
+
+        public IEnumerable<AnnualPriceResult> AnnualPrice() //mennyibe kerül az adott növényből 1m2 felület beültetése
         {
             Order[] orepo = orderRepo.ReadAll().ToArray();
-            return orepo;
-        }
-        public Annual[] AnnualRepo()
-        {
             Annual[] anrepo = repo.ReadAll().ToArray();
-            return anrepo;
+
+            var price = from o in orepo
+                       join f in anrepo
+                       on o.AnnualCode equals f.AnnualCode
+                       select new AnnualPriceResult
+                       {
+                           shortname = f.AnnualCode,
+                           company=o.OrderCompany,
+                           sum= f.Pcsm2* o.Price
+                       };
+            return price; 
         }
 
-        //public IEnumerable<T> AreaCalc2()
-        //{
-        //    var size = (from t in this.areaRepo.ReadAll()
-        //                group t by t.AnnualCode into g
-        //                select new AreaCalcResult
-        //                {
-        //                    shortname=g.Key,
-        //                    areaSize = g.Sum(z => z.AreaSize)
+        public IEnumerable<double> AnnualPricePerCompany(string company) //az megadott cégtől milyen értékben van szükség a növényekre
+        {
+            double cost=0;
+            var prices= AreaPrice();
+            var pricePerComp = from o in prices
+                               where o.company == company
+                               select o.sum;
+            foreach (var pr in pricePerComp)
+            {
+                cost = cost + pr;
+            }
 
-        //                });
-        //    return (IEnumerable<T>)size;
-        //}
+            yield return cost;
+        }
 
+        public IEnumerable<SumResult> AreaPrice() //
+        {
+            Area[] arepo= areaRepo.ReadAll().ToArray();
+            var price = AnnualPrice();
+            var sum = from o in arepo
+                      join a in price
+                      on o.AnnualCode equals a.shortname
+                      select new SumResult
+                      {
+                        shortname = a.shortname,
+                        company=a.company,
+                        sum=a.sum*o.AreaSize
+                        
+                      };
+            return sum;
+        }
+
+        public double ProjectCost() // a project összköltsége
+        {
+            var cost = AreaPrice();
+            var projectcost = cost.Sum(t => t.sum);
+            return Math.Round(projectcost);
+
+        }
+
+        public class AnnualPriceResult
+        {
+           public string shortname {  get; set; }
+           public int sum { get; set; }
+          public string company { get; set; }
+            public AnnualPriceResult()
+            {
+                this.shortname = shortname;
+                this.company = company;
+                this.sum = sum;
+            }
+        }
 
         public class AreaCalcResult
         {
-
+            public int annualID { get; set; }
+            public double areaSize { get; set; }
+            public double pieces { get; set; }
+            public string shortname { get; set; }
 
             public AreaCalcResult(int annualID, double areaSize, string shortname)
             {
@@ -140,17 +203,9 @@ namespace AFZV31_HFT_2023241.Logic
             }
             public AreaCalcResult()
             {
-
                 this.areaSize = areaSize;
-
                 this.shortname = shortname;
             }
-
-            public int annualID { get; set; }
-            public double areaSize { get; set; }
-            public double pieces { get; set; }
-            public string shortname { get; set; }
-
             public override bool Equals(object obj)
             {
                 AreaCalcResult b = obj as AreaCalcResult;
@@ -165,39 +220,19 @@ namespace AFZV31_HFT_2023241.Logic
                         && this.annualID == b.annualID;
                 }
             }
-
         }
 
-        //public IEnumerable<T> PcsCalc()
-        //{
-
-        //    return (IEnumerable<T>)pcs;
-
-        //}
-
-
-
-
-        //public class FlowerSum
-        //{
-        //    public int areasize { get; set; }
-        //    public string shortname { get; set; }
-        //}
-        //public IQueryable PcsCalc(string shortname)
-        //{
-        //    List<Area> list =AreaCalc2();
-        //    var pcs = from t in list
-        //              join flower in db.Annuals 
-        //              on t.AnnualCode equals flower.AnnualCode into result
-        //              select new
-        //              {
-        //                  name = db.Annuals.Select(x=>x.AnnualCode).ToString(),
-        //                  size = t.AreaSize,
-        //                  pieces = result.Select(x => x.Pcsm2),
-
-        //              };
-        //    return  (IQueryable)pcs;
-        //}
-
+        public class SumResult
+        {
+            public string shortname { get; set; }
+            public double sum { get; set; }
+            public string company { get; set; }
+            public SumResult()
+            {
+                this.shortname = shortname;
+                this.sum = sum;
+                this.company = company; 
+            }
+        }
     }
 }

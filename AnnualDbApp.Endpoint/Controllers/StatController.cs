@@ -31,14 +31,37 @@ namespace AFZV31_HFT_2023241.Endpoint.Controllers
             return this.logic.AreaCalc2();
         }
         [HttpGet]
+        public IEnumerable<AnnualPriceResult> AnnualPrice()
+        { 
+        return this.logic.AnnualPrice();
+        }
+        [HttpGet]
+        public IEnumerable<double> AnnualPricePerCompany(string company)
+        {
+            return this.logic.AnnualPricePerCompany(company);
+        }
+
+        [HttpGet]
+        public IEnumerable<SumResult> AreaPrice()
+        {
+            return this.logic.AreaPrice();
+        }
+
+        [HttpGet]
+        public double ProjectCost() 
+        { 
+            return this.logic.ProjectCost(); 
+        }
+
+        [HttpGet]
         public Area[] AreaRepo()
         {
             return this.logic.AreaRepo();
         }
         [HttpGet]
         public Order[] OrderRepo()
-        { 
-        return this.logic.OrderRepo();
+        {
+            return this.logic.OrderRepo();
         }
         [HttpGet]
         public Annual[] AnnualRepo()
@@ -46,12 +69,7 @@ namespace AFZV31_HFT_2023241.Endpoint.Controllers
             return this.logic.AnnualRepo();
         }
 
-        //[HttpGet("{annualCode}")]
-        //public IEnumerable<T> PcsCalc()
-        //{
 
-        //    return logic.PcsCalc();
-        //}
 
 
     }

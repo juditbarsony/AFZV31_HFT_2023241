@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using AFZV31_HFT_2023241.Models;
 using ConsoleTools;
+using System.Linq;
 
 namespace AFZV31_HFT_2023241
 {
@@ -21,13 +22,13 @@ namespace AFZV31_HFT_2023241
                 string name = Console.ReadLine();
                 rest.Post(new Annual() { AnnualName = name }, "annual");
             }
-            else if (entity=="Area")            
+            else if (entity == "Area")
             {
                 Console.Write("Enter Area Size: ");
                 int size = int.Parse(Console.ReadLine());
                 rest.Post(new Area() { AreaSize = size }, "area");
             }
-            else if(entity=="Order")
+            else if (entity == "Order")
             {
                 Console.Write("Enter Annual Shortname: ");
                 string annualCode = Console.ReadLine();
@@ -41,7 +42,7 @@ namespace AFZV31_HFT_2023241
                 Console.Write("Enter Order price: ");
                 int price = int.Parse(Console.ReadLine());
 
-                rest.Post(new Order() { AnnualCode = annualCode, OrderCompany= company, OrderPackaging=packaging, Price= price }, "order");
+                rest.Post(new Order() { AnnualCode = annualCode, OrderCompany = company, OrderPackaging = packaging, Price = price }, "order");
             }
         }
         static void List(string entity)
@@ -59,7 +60,7 @@ namespace AFZV31_HFT_2023241
                 List<Area> areas = rest.Get<Area>("area");
                 foreach (var item in areas)
                 {
-                    Console.WriteLine(item.AreaId + " (id): " + item.AreaSize+"m2");
+                    Console.WriteLine(item.AreaId + " (id): " + item.AreaSize + "m2");
                 }
 
             }
@@ -68,7 +69,7 @@ namespace AFZV31_HFT_2023241
                 List<Order> orders = rest.Get<Order>("order");
                 foreach (var item in orders)
                 {
-                    Console.WriteLine(item.OrderId + ": " + item.AnnualCode+", "+item.OrderCompany + ", " + item.OrderPackaging);
+                    Console.WriteLine(item.OrderId + ": " + item.AnnualCode + ", " + item.OrderCompany + ", " + item.OrderPackaging);
                 }
             }
             Console.ReadLine();
@@ -126,10 +127,16 @@ namespace AFZV31_HFT_2023241
                 int id = int.Parse(Console.ReadLine());
                 rest.Delete(id, "order");
             }
-
         }
 
-       
+        //static IQueryable AreaCalc(string shortname);
+        //{
+        //    Console.Write("Enter AnnualCode for area calculation: ");
+        //    string aCode = Console.ReadLine();
+        //    rest.Get.,
+        //}
+
+
         static void Main(string[] args)
         {
             rest = new RestService("http://localhost:6495/", "annual");
