@@ -25,7 +25,7 @@ namespace AFZV31_HFT_2023241.Models
         public virtual Annual Annuals { get; set; }
         public Order()
         {
-                //Annuals = new HashSet<Annual>();          
+     
         }
 
         public Order(int orderId, string orderCompany, string orderPackaging, int price)
@@ -44,8 +44,6 @@ namespace AFZV31_HFT_2023241.Models
             OrderCompany = split[2];
             OrderPackaging = split[3];
             Price = int.Parse(split[4]);
-
-
         }
 
 

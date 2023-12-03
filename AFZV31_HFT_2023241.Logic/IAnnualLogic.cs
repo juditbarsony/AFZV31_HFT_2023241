@@ -13,13 +13,15 @@ namespace AFZV31_HFT_2023241.Logic
     public interface IAnnualLogic
     {
         IQueryable AreaCalc(string shortname);
-        IQueryable AreaCalc2(); //??
+        //IQueryable AreaCalc2(); //??
 
         IEnumerable<AnnualPriceResult> AnnualPrice();
 
         IEnumerable<double> AnnualPricePerCompany(string company);
 
-        IEnumerable<SumResult> AreaPrice();
+        //IEnumerable<SumResult> AreaPrice();
+
+        public IEnumerable<double> MaxArea();
 
         public double ProjectCost();
 

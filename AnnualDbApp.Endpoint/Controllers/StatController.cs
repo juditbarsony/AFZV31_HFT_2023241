@@ -25,11 +25,11 @@ namespace AFZV31_HFT_2023241.Endpoint.Controllers
             return logic.AreaCalc(annualCode);
         }
 
-        [HttpGet]
-        public IQueryable AreaCalc2()
-        {
-            return this.logic.AreaCalc2();
-        }
+        //[HttpGet]
+        //public IQueryable AreaCalc2()
+        //{
+        //    return this.logic.AreaCalc2();
+        //}
         [HttpGet]
         public IEnumerable<AnnualPriceResult> AnnualPrice()
         { 
@@ -42,10 +42,16 @@ namespace AFZV31_HFT_2023241.Endpoint.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<SumResult> AreaPrice()
+        public IEnumerable<double> MaxArea()
         {
-            return this.logic.AreaPrice();
+            return this.logic.MaxArea();
         }
+
+        //[HttpGet]
+        //public IEnumerable<SumResult> AreaPrice()
+        //{
+        //    return this.logic.AreaPrice();
+        //}
 
         [HttpGet]
         public double ProjectCost() 

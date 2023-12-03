@@ -6,6 +6,7 @@ using System;
 using AFZV31_HFT_2023241.Models;
 using ConsoleTools;
 using System.Linq;
+using System.Numerics;
 
 namespace AFZV31_HFT_2023241
 {
@@ -18,9 +19,17 @@ namespace AFZV31_HFT_2023241
         {
             if (entity == "Annual")
             {
+                Console.Write("Enter Annual Code: ");
+                string code = Console.ReadLine();
+
                 Console.Write("Enter Annual Name: ");
                 string name = Console.ReadLine();
-                rest.Post(new Annual() { AnnualName = name }, "annual");
+
+                Console.Write("Enter how many pieces want to plant for 1m2: ");
+                int pcsm2 = int.Parse(Console.ReadLine());
+
+                rest.Post(new Annual() { AnnualName = name, AnnualCode = code, Pcsm2 = pcsm2 }, "annual");
+                //rest.Post(new Annual() { AnnualCode = code }, "annual");
             }
             else if (entity == "Area")
             {
@@ -81,10 +90,17 @@ namespace AFZV31_HFT_2023241
                 Console.Write("Enter Annual's id to update: ");
                 int id = int.Parse(Console.ReadLine());
                 Annual one = rest.Get<Annual>(id, "annual");
-                Console.Write($"New name [old: {one.AnnualName}]: ");
-                string name = Console.ReadLine();
-                one.AnnualName = name;
+
+                Console.Write($"New code [old: {one.AnnualCode}]: ");
+                string code = Console.ReadLine();
+                one.AnnualCode = code;
+                Console.Write($"New pcsm2 [old: {one.Pcsm2}]: ");
+                int pcsm2 = int.Parse(Console.ReadLine());
+                one.Pcsm2 = pcsm2;
                 rest.Put(one, "annual");
+
+
+
             }
             else if (entity == "Area")
             {
@@ -129,7 +145,7 @@ namespace AFZV31_HFT_2023241
             }
         }
 
-        //static IQueryable AreaCalc(string shortname);
+        //static void AreaCalc(string shortname)
         //{
         //    Console.Write("Enter AnnualCode for area calculation: ");
         //    string aCode = Console.ReadLine();
@@ -137,7 +153,7 @@ namespace AFZV31_HFT_2023241
         //}
 
 
-        static void Main(string[] args)
+    static void Main(string[] args)
         {
             rest = new RestService("http://localhost:6495/", "annual");
 

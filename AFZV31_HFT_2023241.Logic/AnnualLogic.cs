@@ -1,5 +1,6 @@
 ﻿using AFZV31_HFT_2023241.Models;
 using AFZV31_HFT_2023241.Repository;
+using MathNet.Numerics;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using NPOI.SS.Formula.Functions;
@@ -91,7 +92,7 @@ namespace AFZV31_HFT_2023241.Logic
         */
 
 
-        public IQueryable AreaCalc(string shortname) //hány m2 területet ütetnek b
+        public IQueryable AreaCalc(string shortname) // 1. hány m2 területet ütetnek be az adott növénnyel
         {
             var size = (from t in this.areaRepo.ReadAll()
                         where t.AnnualCode == shortname
@@ -104,21 +105,33 @@ namespace AFZV31_HFT_2023241.Logic
             return size;
         }
       
-        public IQueryable AreaCalc2()
+        //public IQueryable AreaCalc2() 
+        //{
+        //    var size = (from t in this.areaRepo.ReadAll()
+        //                group t by t.AnnualCode into g
+        //                select new
+        //                {
+        //                    g.Key,
+        //                    areasize = g.Sum(z => z.AreaSize)
+        //                });
+        //    return size;
+        //}
+
+        public IEnumerable<double> MaxArea() //2. a legnagyobb terület 1 féle növényből
         {
             var size = (from t in this.areaRepo.ReadAll()
                         group t by t.AnnualCode into g
                         select new
                         {
                             g.Key,
-                            areasize = g.Sum(z => z.AreaSize)
-
+                            areasize = g.Sum(z => z.AreaSize),
                         });
-            return size;
+            var maxsize = size.Max(t=>t.areasize);
+            yield return maxsize;
         }
-        
 
-        public IEnumerable<AnnualPriceResult> AnnualPrice() //mennyibe kerül az adott növényből 1m2 felület beültetése
+
+        public IEnumerable<AnnualPriceResult> AnnualPrice() //3. mennyibe kerül az adott növényből 1m2 felület beültetése
         {
             Order[] orepo = orderRepo.ReadAll().ToArray();
             Annual[] anrepo = repo.ReadAll().ToArray();
@@ -135,7 +148,9 @@ namespace AFZV31_HFT_2023241.Logic
             return price; 
         }
 
-        public IEnumerable<double> AnnualPricePerCompany(string company) //az megadott cégtől milyen értékben van szükség a növényekre
+ 
+
+        public IEnumerable<double> AnnualPricePerCompany(string company) //4. az megadott cégtől milyen értékben van szükség a növényekre
         {
             double cost=0;
             var prices= AreaPrice();
@@ -150,7 +165,7 @@ namespace AFZV31_HFT_2023241.Logic
             yield return cost;
         }
 
-        public IEnumerable<SumResult> AreaPrice() //
+        public IEnumerable<SumResult> AreaPrice() 
         {
             Area[] arepo= areaRepo.ReadAll().ToArray();
             var price = AnnualPrice();
@@ -161,13 +176,12 @@ namespace AFZV31_HFT_2023241.Logic
                       {
                         shortname = a.shortname,
                         company=a.company,
-                        sum=a.sum*o.AreaSize
-                        
+                        sum=a.sum *o.AreaSize
                       };
             return sum;
         }
 
-        public double ProjectCost() // a project összköltsége
+        public double ProjectCost() //5. a project összköltsége
         {
             var cost = AreaPrice();
             var projectcost = cost.Sum(t => t.sum);

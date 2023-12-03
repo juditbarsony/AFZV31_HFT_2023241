@@ -21,15 +21,15 @@ namespace AFZV31_HFT_2023241.Repository
         {
             if (!builder.IsConfigured)
             {
-                string conn = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\annuals.mdf;Integrated Security=True;MultipleActiveResultSets=True";
-                builder
-                .UseSqlServer(conn)
-                .UseLazyLoadingProxies();
-
-
+                //string conn = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\annuals.mdf;Integrated Security=True;MultipleActiveResultSets=True";
                 //builder
-                //.UseLazyLoadingProxies()
-                //.UseInMemoryDatabase("annual");
+                //.UseSqlServer(conn)
+                //.UseLazyLoadingProxies();
+
+
+                builder
+                .UseLazyLoadingProxies()
+                .UseInMemoryDatabase("annual");
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
