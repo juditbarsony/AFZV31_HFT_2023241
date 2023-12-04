@@ -73,7 +73,6 @@ namespace AFZV31_HFT_2023241.Repository
                  new Annual("22#TeCha#Teucrium chamaedrys#9"),
                  new Annual("23#ThyVul#Thymus vulgaris#9"),
                  new Annual("24#AcSpin#Acanthus Spinosus#5")
-
                 });
 
             modelBuilder.Entity<Area>().HasData(new Area[]

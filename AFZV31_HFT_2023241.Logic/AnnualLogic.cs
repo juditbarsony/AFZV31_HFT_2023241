@@ -16,6 +16,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using static AFZV31_HFT_2023241.Logic.AnnualLogic;
 
 namespace AFZV31_HFT_2023241.Logic
 {
@@ -92,32 +93,21 @@ namespace AFZV31_HFT_2023241.Logic
         */
 
 
-        public IQueryable AreaCalc(string shortname) // 1. hány m2 területet ütetnek be az adott növénnyel
+        public IEnumerable<AreaCalcResult> AreaCalc(string shortname) // 1. hány m2 területet ütetnek be az adott növénnyel
         {
             var size = (from t in this.areaRepo.ReadAll()
                         where t.AnnualCode == shortname
                         group t by t.AnnualCode into g
-                        select new
+                        select new AreaCalcResult
                         {
-                            areasize = g.Sum(z => z.AreaSize)
+                            areaSize = g.Sum(z => z.AreaSize)
 
                         });
             return size;
         }
       
-        //public IQueryable AreaCalc2() 
-        //{
-        //    var size = (from t in this.areaRepo.ReadAll()
-        //                group t by t.AnnualCode into g
-        //                select new
-        //                {
-        //                    g.Key,
-        //                    areasize = g.Sum(z => z.AreaSize)
-        //                });
-        //    return size;
-        //}
 
-        public IEnumerable<double> MaxArea() //2. a legnagyobb terület 1 féle növényből
+        public double MaxArea() //2. a legnagyobb terület 1 féle növényből
         {
             var size = (from t in this.areaRepo.ReadAll()
                         group t by t.AnnualCode into g
@@ -127,11 +117,11 @@ namespace AFZV31_HFT_2023241.Logic
                             areasize = g.Sum(z => z.AreaSize),
                         });
             var maxsize = size.Max(t=>t.areasize);
-            yield return maxsize;
+            return maxsize;
         }
 
 
-        public IEnumerable<AnnualPriceResult> AnnualPrice() //3. mennyibe kerül az adott növényből 1m2 felület beültetése
+        public IEnumerable<AnnualPriceResult> AnnualPrice() //3. mennyibe kerül a növényekből 1m2 felület beültetése
         {
             Order[] orepo = orderRepo.ReadAll().ToArray();
             Annual[] anrepo = repo.ReadAll().ToArray();
@@ -150,7 +140,7 @@ namespace AFZV31_HFT_2023241.Logic
 
  
 
-        public IEnumerable<double> AnnualPricePerCompany(string company) //4. az megadott cégtől milyen értékben van szükség a növényekre
+        public double AnnualPricePerCompany(string company) //4. az megadott cégtől milyen értékben van szükség a növényekre
         {
             double cost=0;
             var prices= AreaPrice();
@@ -162,7 +152,7 @@ namespace AFZV31_HFT_2023241.Logic
                 cost = cost + pr;
             }
 
-            yield return cost;
+            return cost;
         }
 
         public IEnumerable<SumResult> AreaPrice() 
@@ -199,6 +189,21 @@ namespace AFZV31_HFT_2023241.Logic
                 this.shortname = shortname;
                 this.company = company;
                 this.sum = sum;
+            }
+
+            public override bool Equals(object obj)
+            {
+                AnnualPriceResult b = obj as AnnualPriceResult;
+                if (b == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return this.shortname == b.shortname
+                        && this.company == b.company
+                        && this.sum == b.sum;
+                }
             }
         }
 
@@ -247,6 +252,21 @@ namespace AFZV31_HFT_2023241.Logic
                 this.sum = sum;
                 this.company = company; 
             }
+            public override bool Equals(object obj)
+            {
+                SumResult b = obj as SumResult;
+                if (b == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return this.shortname == b.shortname
+                        && this.sum == b.sum
+                        && this.company == b.company;
+                }
+            }
+
         }
     }
 }

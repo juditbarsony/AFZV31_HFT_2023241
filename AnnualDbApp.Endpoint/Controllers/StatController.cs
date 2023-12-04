@@ -20,7 +20,7 @@ namespace AFZV31_HFT_2023241.Endpoint.Controllers
         }
 
         [HttpGet("{annualCode}")]
-        public IQueryable AreaCalc(string annualCode)
+        public IEnumerable<AreaCalcResult> AreaCalc(string annualCode)
         {
             return logic.AreaCalc(annualCode);
         }
@@ -36,13 +36,13 @@ namespace AFZV31_HFT_2023241.Endpoint.Controllers
         return this.logic.AnnualPrice();
         }
         [HttpGet]
-        public IEnumerable<double> AnnualPricePerCompany(string company)
+        public double AnnualPricePerCompany(string company)
         {
             return this.logic.AnnualPricePerCompany(company);
         }
 
         [HttpGet]
-        public IEnumerable<double> MaxArea()
+        public double MaxArea()
         {
             return this.logic.MaxArea();
         }
