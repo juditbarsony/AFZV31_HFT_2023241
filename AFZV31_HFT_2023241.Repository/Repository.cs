@@ -22,7 +22,7 @@ namespace AFZV31_HFT_2023241.Repository
 
         public void Delete(int id)
         {      
-            ctx.Set<T>().Remove(Read(id));//
+            ctx.Set<T>().Remove(Read(id));
             ctx.SaveChanges();
         }
 
@@ -30,7 +30,7 @@ namespace AFZV31_HFT_2023241.Repository
         {
             return ctx.Set<T>();
         }
-        public abstract T Read(int id); //
+        public abstract T Read(int id); 
         public abstract void Update(T item);
 
     }

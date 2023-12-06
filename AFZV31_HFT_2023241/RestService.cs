@@ -133,7 +133,7 @@ namespace AFZV31_HFT_2023241.Client
         public void Put<T>(T item, string endpoint)
         {
             HttpResponseMessage response =
-                client.PutAsJsonAsync(endpoint, item).GetAwaiter().GetResult();  //+ "/" 
+                client.PutAsJsonAsync(endpoint, item).GetAwaiter().GetResult();  
 
             if (!response.IsSuccessStatusCode)
             {

@@ -19,7 +19,6 @@ namespace AFZV31_HFT_2023241.Logic
 
        double AnnualPricePerCompany(string company);
 
-        //IEnumerable<SumResult> AreaPrice();
 
         public double MaxArea();
 

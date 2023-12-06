@@ -139,7 +139,7 @@ namespace AFZV31_HFT_2023241.Test
         [Test]
         public void CreateOrderTest()
         {
-            var order = new Order() { OrderCompany = "Mocsáry" }; // ide olyat írjak, ami még nincs?
+            var order = new Order() { OrderCompany = "Mocsáry" }; 
 
             //ACT
             ologic.Create(order);
@@ -148,11 +148,10 @@ namespace AFZV31_HFT_2023241.Test
             mockOrderRepo.Verify(r => r.Create(order), Times.Once);
         }
 
-
         [Test]
         public void DeleteOrderTest()
         {
-            int orderid = 2; // ide olyat írjak, ami még nincs?
+            int orderid = 2; 
 
             //ACT
             ologic.Delete(orderid);
@@ -172,7 +171,6 @@ namespace AFZV31_HFT_2023241.Test
             //ASSERT
             mockAreaRepo.Verify(r => r.Delete(areaid), Times.Once);
         }
-
 
     }
 

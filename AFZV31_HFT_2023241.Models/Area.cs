@@ -22,25 +22,12 @@ namespace AFZV31_HFT_2023241.Models
         private string line;
         [NotMapped]
 
-       
         public virtual Annual Annuals { get; set; }
 
         public Area()
         {
         }
 
-
-        //public Area(int areaId, double areaSize)
-        //{
-        //    AreaId = areaId;
-        //    AreaSize = areaSize;
-        //}
-
-        //public Area(string annualCode, double areaSize)
-        //{
-        //    AnnualCode = annualCode;
-        //    AreaSize = areaSize;
-        //}
         public Area (string line)
         {
             string[] split = line.Split('#');

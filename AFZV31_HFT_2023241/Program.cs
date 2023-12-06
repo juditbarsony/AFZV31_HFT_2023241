@@ -29,7 +29,6 @@ namespace AFZV31_HFT_2023241
                 int pcsm2 = int.Parse(Console.ReadLine());
 
                 rest.Post(new Annual() { AnnualName = name, AnnualCode = code, Pcsm2 = pcsm2 }, "annual");
-                //rest.Post(new Annual() { AnnualCode = code }, "annual");
             }
             else if (entity == "Area")
             {
@@ -145,12 +144,6 @@ namespace AFZV31_HFT_2023241
             }
         }
 
-        //static void AreaCalc(string shortname)
-        //{
-        //    Console.Write("Enter AnnualCode for area calculation: ");
-        //    string aCode = Console.ReadLine();
-        //    rest.Get.,
-        //}
 
 
     static void Main(string[] args)

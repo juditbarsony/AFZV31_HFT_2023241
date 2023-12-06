@@ -23,15 +23,15 @@ namespace AFZV31_HFT_2023241.Logic
     public class AnnualLogic :IAnnualLogic
     {
         IRepository<Annual> repo;
-        IRepository<Area> areaRepo; //??
-        IRepository<Order> orderRepo; //??
+        IRepository<Area> areaRepo; 
+        IRepository<Order> orderRepo; 
 
 
         public AnnualLogic(IRepository<Annual> repo, IRepository<Area> areaRepo, IRepository<Order> orderRepo)  
         {
             this.repo = repo;
-            this.orderRepo = orderRepo; //??
-            this.areaRepo = areaRepo; //??
+            this.orderRepo = orderRepo; 
+            this.areaRepo = areaRepo; 
         }
 
         public void Create(Annual item)
@@ -84,13 +84,6 @@ namespace AFZV31_HFT_2023241.Logic
             return anrepo;
         }
 
-        /*noncruds
-         * 1.bekéri a nevet, kiadja hogy hány m2-en van ilyen növény
-         * 2. készít egy gyüjteményt, ami név szerint összegzi a területeket, elmenti egy változóba (sumArea)
-         * 3. A sumArea-hoz hozzáadja az Annuals-t (pcsm2). Kimenet egy gyűjtemény (annualPcs): vagy növényenként megmondja hogy hány db-ra van szükség
-         * (annualCode a közös, pcsm2*area kellene)
-         * 4. Az előző gyűjteményhez hozzácsapja az ordert. annualCode a közös, 
-        */
 
 
         public IEnumerable<AreaCalcResult> AreaCalc(string shortname) // 1. hány m2 területet ütetnek be az adott növénnyel

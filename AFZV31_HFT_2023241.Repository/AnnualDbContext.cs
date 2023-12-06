@@ -21,11 +21,6 @@ namespace AFZV31_HFT_2023241.Repository
         {
             if (!builder.IsConfigured)
             {
-                //string conn = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\annuals.mdf;Integrated Security=True;MultipleActiveResultSets=True";
-                //builder
-                //.UseSqlServer(conn)
-                //.UseLazyLoadingProxies();
-
 
                 builder
                 .UseLazyLoadingProxies()
@@ -38,13 +33,11 @@ namespace AFZV31_HFT_2023241.Repository
             .HasOne(area => area.Annuals)
             .WithMany(annual => annual.Areas)
             .HasPrincipalKey(area => area.AnnualCode);
-            //.OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Order>()
             .HasOne(order => order.Annuals)
             .WithMany(annual => annual.Orders)
             .HasPrincipalKey(order => order.AnnualCode);
-            //.OnDelete(DeleteBehavior.Cascade);
 
 
             modelBuilder.Entity<Annual>().HasData(new Annual[]
@@ -208,8 +201,7 @@ namespace AFZV31_HFT_2023241.Repository
                     new Order("23#ThyVul#Megyeri#10#590")
             });
 
-            base.OnModelCreating(modelBuilder);//ezt nem tudom mire jó
-
+            base.OnModelCreating(modelBuilder);
         }
 
 
