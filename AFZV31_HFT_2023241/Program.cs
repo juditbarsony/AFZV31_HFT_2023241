@@ -60,7 +60,7 @@ namespace AFZV31_HFT_2023241
                 List<Annual> annuals = rest.Get<Annual>("annual");
                 foreach (var item in annuals)
                 {
-                    Console.WriteLine(item.AnnualId + ": " + item.AnnualName);
+                    Console.WriteLine(item.AnnualId + " (id): " + item.AnnualName + ", " + item.AnnualCode + ", " + item.Pcsm2 + " (pcs/m2)");
                 }
             }
             else if (entity == "Area")
@@ -77,7 +77,7 @@ namespace AFZV31_HFT_2023241
                 List<Order> orders = rest.Get<Order>("order");
                 foreach (var item in orders)
                 {
-                    Console.WriteLine(item.OrderId + ": " + item.AnnualCode + ", " + item.OrderCompany + ", " + item.OrderPackaging);
+                    Console.WriteLine(item.OrderId + ": " + item.AnnualCode + ", " + item.OrderCompany + ", " + item.OrderPackaging + ", " + item.Price);
                 }
             }
             Console.ReadLine();
@@ -90,9 +90,9 @@ namespace AFZV31_HFT_2023241
                 int id = int.Parse(Console.ReadLine());
                 Annual one = rest.Get<Annual>(id, "annual");
 
-                Console.Write($"New code [old: {one.AnnualCode}]: ");
-                string code = Console.ReadLine();
-                one.AnnualCode = code;
+                Console.Write($"New name [old: {one.AnnualName}]: ");
+                string name = Console.ReadLine();
+                one.AnnualName = name;
                 Console.Write($"New pcsm2 [old: {one.Pcsm2}]: ");
                 int pcsm2 = int.Parse(Console.ReadLine());
                 one.Pcsm2 = pcsm2;
@@ -119,6 +119,15 @@ namespace AFZV31_HFT_2023241
                 Console.Write($"New company [old: {one.OrderCompany}]: ");
                 string comp = Console.ReadLine();
                 one.OrderCompany = comp;
+
+                Console.Write($"New package size [old: {one.OrderPackaging}]: ");
+                string pack = Console.ReadLine();
+                one.OrderPackaging = pack;
+
+                Console.Write($"New price [old: {one.Price}]: ");
+                int price = int.Parse(Console.ReadLine());
+                one.Price = price;
+
                 rest.Put(one, "order");
             }
         }
