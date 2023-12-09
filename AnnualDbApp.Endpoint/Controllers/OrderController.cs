@@ -35,7 +35,7 @@ namespace AFZV31_HFT_2023241.Endpoint.Controllers
         }
 
 
-        [HttpPut("{id}")]
+        [HttpPut] // [HttpPut("{id}")] 
         public void Update([FromBody] Order value)
         {
             this.logic.Update(value);

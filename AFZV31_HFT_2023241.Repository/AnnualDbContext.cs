@@ -31,13 +31,13 @@ namespace AFZV31_HFT_2023241.Repository
         {
             modelBuilder.Entity<Area>()
             .HasOne(area => area.Annuals)
-            .WithMany(annual => annual.Areas)
-            .HasPrincipalKey(area => area.AnnualCode);
+            .WithMany(annual => annual.Areas);
+            //.HasForeignKey(area => area.AnnualCode);
 
             modelBuilder.Entity<Order>()
             .HasOne(order => order.Annuals)
-            .WithMany(annual => annual.Orders)
-            .HasPrincipalKey(order => order.AnnualCode);
+            .WithMany(annual => annual.Orders);
+            //.HasForeignKey(order => order.AnnualCode);
 
 
             modelBuilder.Entity<Annual>().HasData(new Annual[]

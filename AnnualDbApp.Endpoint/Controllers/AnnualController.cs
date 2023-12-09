@@ -37,7 +37,7 @@ namespace AFZV31_HFT_2023241_AnnualDbApp.Endpoint.Controllers
         }
 
         
-        [HttpPut("{id}")]
+        [HttpPut] // [HttpPut("{id}")]
         public void Update([FromBody] Annual value)
         {
             this.logic.Update(value);
