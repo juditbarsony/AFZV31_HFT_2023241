@@ -1,3 +1,4 @@
+using AFZV31_HFT_2023241.Endpoint.Services;
 using AFZV31_HFT_2023241.Logic;
 using AFZV31_HFT_2023241.Models;
 using AFZV31_HFT_2023241.Repository;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,6 +35,7 @@ namespace AnnualDbApp.Endpoint
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
             services.AddTransient<AnnualDbContext>();
 
             services.AddTransient<IRepository<Annual>, AnnualRepostitory>();
@@ -76,6 +79,7 @@ namespace AnnualDbApp.Endpoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/hub");
             });
         }
     }

@@ -17,7 +17,7 @@ namespace AFZV31_HFT_2023241.WpfClient
     {
         HttpClient client;
 
-        public RestService(string baseurl, string pingableEndpoint = "swagger") //"swagger"
+        public RestService(string baseurl, string pingableEndpoint = "swagger")
         {
             bool isOk = false;
             do

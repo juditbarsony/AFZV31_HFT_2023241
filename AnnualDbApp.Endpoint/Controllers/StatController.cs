@@ -1,6 +1,8 @@
-﻿using AFZV31_HFT_2023241.Logic;
+﻿using AFZV31_HFT_2023241.Endpoint.Services;
+using AFZV31_HFT_2023241.Logic;
 using AFZV31_HFT_2023241.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using NPOI.SS.Formula.Functions;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +16,16 @@ namespace AFZV31_HFT_2023241.Endpoint.Controllers
     public class StatController : ControllerBase
     {
         IAnnualLogic logic;
-        public StatController(IAnnualLogic logic)
+
+
+        IHubContext<SignalRHub> hub;
+
+        public StatController(IAnnualLogic logic, IHubContext<SignalRHub> hub)
         {
             this.logic = logic;
+            this.hub = hub;
         }
+
 
         [HttpGet("{annualCode}")]
         public IEnumerable<AreaCalcResult> AreaCalc(string annualCode)

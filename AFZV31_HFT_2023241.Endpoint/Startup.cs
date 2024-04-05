@@ -16,6 +16,7 @@ namespace AFZV31_HFT_2023241.Endpoint
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,6 +34,8 @@ namespace AFZV31_HFT_2023241.Endpoint
                 endpoints.MapGet("/", async context =>
                 {
                     await context.Response.WriteAsync("Hello World!");
+                    //endpoints.MapControllers(); 
+                    endpoints.MapHub<SignalRHub>("/hub");
                 });
             });
         }
