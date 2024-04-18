@@ -76,6 +76,12 @@ namespace AnnualDbApp.Endpoint
 
             app.UseAuthorization();
 
+            app.UseCors(x => x
+               .AllowCredentials()
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .WithOrigins("http://localhost:26644"));
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

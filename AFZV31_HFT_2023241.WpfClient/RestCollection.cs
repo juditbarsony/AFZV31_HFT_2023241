@@ -35,7 +35,7 @@ namespace AFZV31_HFT_2023241.WpfClient
                 wc.DownloadData(url);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
                 return false;
             }

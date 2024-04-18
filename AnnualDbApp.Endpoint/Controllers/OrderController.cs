@@ -9,7 +9,7 @@ namespace AFZV31_HFT_2023241.Endpoint.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class OrderController
+    public class OrderController : ControllerBase
     {
         IOrderLogic logic;
 
@@ -21,8 +21,8 @@ namespace AFZV31_HFT_2023241.Endpoint.Controllers
             this.hub = hub;
         }
 
-        public OrderController(IOrderLogic logic)
-        { this.logic = logic; }
+        //public OrderController(IOrderLogic logic)
+        //{ this.logic = logic; }
 
 
         [HttpGet]

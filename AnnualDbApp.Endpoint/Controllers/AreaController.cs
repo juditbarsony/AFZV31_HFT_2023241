@@ -9,7 +9,7 @@ namespace AFZV31_HFT_2023241.Endpoint.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class AreaController
+    public class AreaController : ControllerBase
     {
         IAreaLogic logic;
         IHubContext<SignalRHub> hub;
@@ -19,8 +19,8 @@ namespace AFZV31_HFT_2023241.Endpoint.Controllers
             this.logic = logic;
             this.hub = hub;
         }
-        public AreaController(IAreaLogic logic)
-        { this.logic = logic; }
+        //public AreaController(IAreaLogic logic)
+        //{ this.logic = logic; }
 
 
         [HttpGet]

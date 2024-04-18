@@ -3,32 +3,73 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AFZV31_HFT_2023241.WpfClient"
+        xmlns:local2="clr-namespace:AFZV31_HFT_2023241.WpfClient"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
-        <local:MainWindowViewModel />
+        <local2:MainWindowViewModel />
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <ListBox ItemsSource="{Binding Annuals}" SelectedItem="{Binding SelectedAnnual}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Label Content="ANNUAL EDITOR" Grid.Column="0" Grid.Row="0" Background="LightGoldenrodYellow" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Annuals}" SelectedItem="{Binding SelectedAnnual}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Label Content="{Binding AnnualName}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Grid.Column="1">
-            <Label Content="Name" Background="LightGoldenrodYellow" Padding="10" />
-            <TextBox Text="{Binding SelectedAnnual.AnnualName}" Padding="10" Margin="0,0,0,30" />
-            <Button Content="Create Annual" Command="{Binding CreateAnnualCommand}" Margin="10" Padding="10" />
-            <Button Content="Delete Annual" Command="{Binding DeleteAnnualCommand}" Margin="10" Padding="10" />
-            <Button Content="Update Annual" Command="{Binding UpdateAnnualCommand}" Margin="10" Padding="10" />
-            <Label Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" />
+        <StackPanel Grid.Column="0" Grid.Row="2">
+            <Label Content="Annual name" Background="LightGoldenrodYellow" Padding="5" />
+            <TextBox Text="{Binding SelectedAnnual.AnnualName}" Padding="5" Margin="10,5,10,5" />
+            <Button Content="Create Annual" Command="{Binding CreateAnnualCommand}" Margin="10" Padding="5" />
+            <Button Content="Update Annual" Command="{Binding UpdateAnnualCommand}" Margin="10" Padding="5" />
+            <Button Content="Delete Annual" Command="{Binding DeleteAnnualCommand}" Margin="10" Padding="5" />
+            <Label Content="{Binding ErrorMessage}" FontSize="14" Foreground="Red" HorizontalContentAlignment="Center" />
         </StackPanel>
 
+        <Label Content="AREA EDITOR" Grid.Column="1" Grid.Row="0" Background="LightGoldenrodYellow" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <ListBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Areas}" SelectedItem="{Binding SelectedArea}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding AreaSize}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Column="1" Grid.Row="2">
+            <Label Content="Area size" Background="LightGoldenrodYellow" Padding="5" />
+            <TextBox Text="{Binding SelectedArea.AreaSize}" Padding="5" Margin="10,5,10,5" />
+            <Button Content="Create Area" Command="{Binding CreateAreaCommand}" Margin="10" Padding="5" />
+            <Button Content="Update Area" Command="{Binding UpdateAreaCommand}" Margin="10" Padding="5" />
+            <Button Content="Delete Area" Command="{Binding DeleteAreaCommand}" Margin="10" Padding="5" />
+            <Label Content="{Binding ErrorMessage}" FontSize="14" Foreground="Red" HorizontalContentAlignment="Center" />
+        </StackPanel>
+
+
+        <Label Content="ORDER EDITOR" Grid.Column="2" Grid.Row="0" Background="LightGoldenrodYellow" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <ListBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding OrderCompany}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Column="2" Grid.Row="2">
+            <Label Content="Company name" Background="LightGoldenrodYellow" Padding="5" />
+            <TextBox Text="{Binding SelectedOrder.OrderCompany}" Padding="5" Margin="10,5,10,5" />
+            <Button Content="Create Order" Command="{Binding CreateOrderCommand}" Margin="10" Padding="5" />
+            <Button Content="Update Order" Command="{Binding UpdateOrderCommand}" Margin="10" Padding="5" />
+            <Button Content="Delete Order" Command="{Binding DeleteOrderCommand}" Margin="10" Padding="5" />
+            <Label Content="{Binding ErrorMessage}" FontSize="14" Foreground="Red" HorizontalContentAlignment="Center" />
+        </StackPanel>
     </Grid>
 </Window>
