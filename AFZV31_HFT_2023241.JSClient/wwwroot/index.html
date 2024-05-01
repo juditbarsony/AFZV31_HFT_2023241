@@ -11,7 +11,7 @@
     <div id="formdiv">
         <label>Annual Name</label>
         <input type="text" id="annualname" />
-        <button type="button" onclick="create()">Add Annual</button>
+        <button type="button" onclick="create()">Add new Annual</button>
     </div>
 
     <div id="updateformdiv">
@@ -31,8 +31,62 @@
         <tbody id="resultarea">
         </tbody>
     </table>
+
+    <h1>Area Catalog</h1>
+
+    <div id="formdiv">
+        <label>Area Size</label>
+        <input type="text" id="areasize" />
+        <button type="button" onclick="createArea()">Add Area</button>
+    </div>
+
+    <div id="updateformdiv2">
+        <label>Area Size</label>
+        <input type="text" id="areasizetoupdate" />
+        <button type="button" onclick="updateArea()">Update Area</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Size</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea2">
+        </tbody>
+    </table>
+
+    <h1>Order Catalog</h1>
+
+    <div id="formdiv">
+        <label>Company name</label>
+        <input type="text" id="ordername" />
+        <button type="button" onclick="createOrder()">Add new Order</button>
+    </div>
+
+    <div id="updateformdiv3">
+        <label>Company name</label>
+        <input type="text" id="ordernametoupdate" />
+        <button type="button" onclick="updateOrder()">Update Order</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Company Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea3">
+        </tbody>
+    </table>
+
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script src="script.js"></script>
-
 </body>
 </html>

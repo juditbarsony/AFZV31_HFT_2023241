@@ -20,11 +20,13 @@ th {
 
 #formdiv {
     display: flex;
+    width: 60%;
     flex-direction: column;
     margin-bottom: 20px;
 }
 
     #formdiv label, button, input {
+        
         margin: 10px;
         padding: 7px;
     }
@@ -33,9 +35,9 @@ th {
         font-weight: bolder;
     }
 
-#updateformdiv
-{
+#updateformdiv {
     display: none;
+    width: 60%;
     flex-direction: column;
     margin-bottom: 20px;
 }
@@ -46,6 +48,38 @@ th {
     }
 
     #updateformdiv label {
+        font-weight: bolder;
+    }
+
+
+#updateformdiv2 {
+    display: none;
+    width: 60%;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+#updateformdiv2 label, button, input {
+    margin: 10px;
+    padding: 7px;
+}
+
+#updateformdiv2 label {
+    font-weight: bolder;
+}
+
+#updateformdiv3 {
+    display: none;
+    width: 60%;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+    #updateformdiv3 label, button, input {
+        margin: 10px;
+        padding: 7px;
+    }
+
+    #updateformdiv3 label {
         font-weight: bolder;
     }
 
